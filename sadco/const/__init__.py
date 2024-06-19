@@ -37,3 +37,5 @@ class SADCOScope(str, Enum):
     WAVES_READ = 'sadco.waves:read'
     ECHO_SOUNDING_READ = 'sadco.echo-sounding:read'
     UTR_READ = 'sadco.utr:read'
+    HYDRO_DOWNLOAD = 'sadco.hydro:download'
+    CURRENTS_DOWNLOAD = 'sadco.currents:download'
