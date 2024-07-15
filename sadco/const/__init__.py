@@ -10,7 +10,7 @@ class SurveyType(str, Enum):
     ECHOSOUNDING = 'echo-sounding'
     UTR = 'utr'
     VOS = 'vos'
-    UNKNOWN = 'unkown'
+    UNKNOWN = 'unknown'
 
 
 class DataType(str, Enum):
@@ -37,3 +37,9 @@ class SADCOScope(str, Enum):
     WAVES_READ = 'sadco.waves:read'
     ECHO_SOUNDING_READ = 'sadco.echo-sounding:read'
     UTR_READ = 'sadco.utr:read'
+    HYDRO_DOWNLOAD = 'sadco.hydro:download'
+    CURRENTS_DOWNLOAD = 'sadco.currents:download'
+    WEATHER_DOWNLOAD = 'sadco.weather:download'
+    WAVES_DOWNLOAD = 'sadco.waves:download'
+    UTR_DOWNLOAD = 'sadco.utr:download'
+    UNKNOWN_READ = 'sadco.unknown:read'
