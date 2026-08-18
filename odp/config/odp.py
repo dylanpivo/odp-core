@@ -49,18 +49,6 @@ class ODPWebConfig(BaseConfig, AppConfigMixin):
     class Config:
         env_prefix = 'ODP_WEB_'
 
-    THREDDS_URL: AnyHttpUrl  # proxy URL for the THREDDS server
-
-
-class ODPIdentityConfig(BaseConfig):
-    class Config:
-        env_prefix = 'ODP_IDENTITY_'
-
-    FLASK_SECRET: str  # Flask secret key
-    NCCRD_CLIENT_ID: str = None # OAuth2 client ID that will trigger NCCRD UI branding
-    SADCO_CLIENT_ID: str = None # OAuth2 client ID that will trigger SADCO UI branding
-
-
 class ODPMailConfig(BaseConfig):
     class Config:
         env_prefix = 'ODP_MAIL_'
@@ -86,6 +74,5 @@ class ODPConfig(BaseConfig):
         'DB': ODPDBConfig,
         'ADMIN': ODPAdminConfig,
         'WEB': ODPWebConfig,
-        'IDENTITY': ODPIdentityConfig,
         'MAIL': ODPMailConfig,
     }

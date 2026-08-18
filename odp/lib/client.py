@@ -17,16 +17,18 @@ class ODPBaseClient:
     def __init__(
             self,
             api_url: str,
-            hydra_url: str,
-            client_id: str,
-            client_secret: str,
-            scope: list[str],
+            hydra_url: str = None,
+            client_id: str = None,
+            client_secret: str = None,
+            scope: list[str] = None,
+            auth_url: str = None,
     ) -> None:
         self.api_url = api_url
-        self.hydra_url = hydra_url
+        self.auth_url = auth_url or hydra_url
+        self.hydra_url = self.auth_url
         self.client_id = client_id
         self.client_secret = client_secret
-        self.scope = scope
+        self.scope = scope or []
 
     @property
     def token(self) -> dict:
@@ -124,15 +126,24 @@ class ODPClient(ODPBaseClient):
     @property
     def token(self) -> dict:
         if self._token is None:
-            self._token = OAuth2Session(
+            token_url = f'{self.auth_url}/protocol/openid-connect/token'
+            session = OAuth2Session(
                 client_id=self.client_id,
                 client_secret=self.client_secret,
                 scope=' '.join(self.scope),
-            ).fetch_token(
-                url=f'{self.hydra_url}/oauth2/token',
-                grant_type='client_credentials',
-                timeout=10.0,
             )
+            try:
+                self._token = session.fetch_token(
+                    url=token_url,
+                    grant_type='client_credentials',
+                    timeout=10.0,
+                )
+            except Exception:
+                self._token = session.fetch_token(
+                    url=f'{self.auth_url}/oauth2/token',
+                    grant_type='client_credentials',
+                    timeout=10.0,
+                )
 
         return self._token
 
